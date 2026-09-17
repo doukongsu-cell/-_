@@ -59,11 +59,11 @@
   }
   .nav-links a:hover, .nav-links a.active { color: var(--accent); }
 
-  /* ── HERO ── */
+  /* ── HERO (compact: projects should peek above the fold) ── */
   .hero {
-    min-height: 100vh;
+    min-height: auto;
     display: flex; flex-direction: column; justify-content: center;
-    padding: 140px 56px 100px;
+    padding: 128px 56px 36px;
     max-width: 1100px; margin: 0 auto;
     position: relative;
   }
@@ -71,13 +71,13 @@
     font-family: 'DM Mono', monospace;
     font-size: 11px; letter-spacing: 0.28em;
     text-transform: uppercase; color: var(--accent);
-    margin-bottom: 28px;
+    margin-bottom: 18px;
     animation: fadeUp 0.7s ease both;
   }
   .hero-name {
     font-family: 'Noto Serif SC', serif;
-    font-size: clamp(48px, 7vw, 84px);
-    font-weight: 700; line-height: 1.08;
+    font-size: clamp(38px, 5.2vw, 60px);
+    font-weight: 700; line-height: 1.1;
     letter-spacing: -0.01em;
     animation: fadeUp 0.7s 0.1s ease both;
   }
@@ -88,91 +88,50 @@
     color: var(--accent);
   }
   .hero-title {
-    font-size: clamp(15px, 1.6vw, 18px);
+    font-size: 15px;
     color: var(--muted); font-weight: 400;
-    margin-top: 20px;
+    margin-top: 14px;
     letter-spacing: 0.02em;
     line-height: 1.6;
-    max-width: 560px;
+    max-width: 620px;
     animation: fadeUp 0.7s 0.2s ease both;
   }
   .hero-tags {
-    display: flex; gap: 10px; flex-wrap: wrap;
-    margin-top: 36px;
+    display: flex; gap: 0; flex-wrap: wrap; align-items: center;
+    margin-top: 18px;
     animation: fadeUp 0.7s 0.3s ease both;
   }
+  /* plain text separators — deliberately NOT button-like */
   .tag {
-    font-family: 'DM Mono', monospace; font-size: 10px;
-    padding: 7px 14px; border: 1px solid var(--border);
-    border-radius: 100px; color: var(--muted);
-    letter-spacing: 0.06em;
-    background: var(--card);
-  }
-  .hero-scroll {
-    margin-top: 72px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
-    animation: fadeUp 0.7s 0.45s ease both;
-  }
-  .hero-scroll span {
-    font-family: 'DM Mono', monospace; font-size: 10px;
-    letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
-  }
-  .scroll-line {
-    width: 1px; height: 44px; background: var(--accent);
-    animation: scrollPulse 2.2s ease-in-out infinite;
-  }
-
-  /* ── ABOUT ── */
-  .about {
-    max-width: 1100px; margin: 0 auto;
-    padding: 80px 56px;
-    display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px;
-    border-top: 1px solid var(--border);
-  }
-  .about-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px; letter-spacing: 0.22em;
-    text-transform: uppercase; color: var(--accent);
-    margin-bottom: 20px;
-  }
-  .about h2 {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 28px; font-weight: 600;
-    line-height: 1.4; margin-bottom: 24px;
-  }
-  .about p {
-    font-size: 15px; line-height: 1.9;
+    font-size: 12px;
     color: var(--muted);
-    margin-bottom: 16px;
+    letter-spacing: 0.04em;
   }
-  .about-skills {
-    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px;
-  }
-  .skill-pill {
-    font-size: 12px; padding: 6px 14px;
-    background: var(--accent-soft); color: var(--accent);
-    border-radius: 100px; font-weight: 500;
+  .tag + .tag::before {
+    content: '·';
+    margin: 0 12px;
+    color: var(--border);
   }
 
   /* ── SECTION LABEL ── */
   .section-head {
     max-width: 1100px; margin: 0 auto;
-    padding: 80px 56px 32px;
+    padding: 28px 56px 22px;
     display: flex; justify-content: space-between; align-items: flex-end;
-    border-top: 1px solid var(--border);
   }
   .section-head .left .label {
     font-family: 'DM Mono', monospace;
     font-size: 11px; letter-spacing: 0.22em;
     text-transform: uppercase; color: var(--accent);
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
   .section-head .left h2 {
     font-family: 'Noto Serif SC', serif;
-    font-size: 32px; font-weight: 700;
+    font-size: 26px; font-weight: 700;
   }
   .section-head .right {
     font-size: 13px; color: var(--muted);
-    max-width: 320px; text-align: right; line-height: 1.7;
+    max-width: 340px; text-align: right; line-height: 1.7;
   }
 
   /* ── PROJECT GRID ── */
@@ -224,6 +183,18 @@
     border-radius: 3px; color: var(--muted);
     letter-spacing: 0.04em;
   }
+  /* explicit click cue */
+  .card-cta {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 18px;
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    letter-spacing: 0.14em; color: var(--accent);
+  }
+  .card-cta::after {
+    content: '→'; font-size: 14px; line-height: 1;
+    transition: transform 0.3s ease;
+  }
+  .project-card:hover .card-cta::after { transform: translateX(5px); }
   .card-wide { grid-column: 1 / -1; }
 
   /* ── PROJECT PAGE ── */
@@ -295,9 +266,7 @@
     border: 1px solid var(--border);
     /* reserve space before image loads -> no layout collapse */
     aspect-ratio: 842 / 595;
-    background:
-      linear-gradient(100deg, #EDE9E3 30%, #F6F3EE 50%, #EDE9E3 70%) 0 0 / 200% 100%;
-    animation: shimmer 1.6s linear infinite;
+    background: #ECE7E0;
   }
   .gallery-item.ratio-wide { aspect-ratio: 1023 / 576; }
   .gallery-item img {
@@ -308,11 +277,6 @@
     transition: opacity 0.35s ease;
   }
   .gallery-item img.loaded { opacity: 1; }
-  .gallery-item:has(img.loaded) { animation: none; }
-  @keyframes shimmer {
-    from { background-position: 200% 0; }
-    to { background-position: -200% 0; }
-  }
 
   /* ── FOOTER ── */
   footer {
@@ -338,19 +302,13 @@
     from { opacity: 0; }
     to { opacity: 1; }
   }
-  @keyframes scrollPulse {
-    0%, 100% { opacity: 0.3; transform: scaleY(0.6); transform-origin: top; }
-    50% { opacity: 1; transform: scaleY(1); transform-origin: top; }
-  }
-
   /* ── RESPONSIVE ── */
   @media (max-width: 860px) {
     nav { padding: 16px 24px; }
     .nav-links { gap: 18px; }
     .floating-back { top: 10px; left: 24px; min-height: 40px; padding: 8px 16px; }
-    .hero { padding: 120px 24px 70px; }
-    .about { grid-template-columns: 1fr; gap: 28px; padding: 56px 24px; }
-    .section-head { flex-direction: column; align-items: flex-start; gap: 16px; padding: 56px 24px 24px; }
+    .hero { padding: 110px 24px 28px; }
+    .section-head { flex-direction: column; align-items: flex-start; gap: 10px; padding: 22px 24px 18px; }
     .section-head .right { text-align: left; }
     .project-index { grid-template-columns: 1fr; padding: 0 24px 70px; gap: 24px; }
     .project-header { padding: 32px 24px 40px; }
@@ -366,7 +324,6 @@
   <a class="nav-logo" onclick="showHome()">Wei Xinchi</a>
   <ul class="nav-links">
     <li><a onclick="showHome()" id="nav-home" class="active">Work</a></li>
-    <li><a onclick="showHome(); setTimeout(()=>document.getElementById('about').scrollIntoView({behavior:'smooth'}),100)">About</a></li>
   </ul>
 </nav>
 
@@ -377,40 +334,8 @@
 <div id="home">
   <section class="hero">
     <p class="hero-eyebrow">Product Designer · UI/UX · User Research</p>
-    <h1 class="hero-name">魏欣驰<br><em>Wei Xinchi</em></h1>
-    <p class="hero-title">产品设计师，关注用户研究、产品策略与交互体验。善于从真实场景出发，把复杂问题拆解为清晰的产品方案。</p>
-    <div class="hero-tags">
-      <span class="tag">用户研究</span>
-      <span class="tag">产品设计</span>
-      <span class="tag">UI/UX 设计</span>
-      <span class="tag">交互设计</span>
-      <span class="tag">产品策略</span>
-    </div>
-    <div class="hero-scroll">
-      <div class="scroll-line"></div>
-      <span>scroll</span>
-    </div>
-  </section>
-
-  <section class="about" id="about">
-    <div class="left">
-      <p class="about-label">About Me</p>
-      <h2>以用户研究为起点，<br>用产品思维解决问题。</h2>
-    </div>
-    <div class="right">
-      <p>我是魏欣驰，一名专注于产品设计与用户体验的设计师。拥有从用户洞察、需求定义到交互落地的完整产品思维，擅长用定性与定量研究驱动设计决策。</p>
-      <p>作品集涵盖 APP 体验优化、AI 产品概念、硬件产品设计与可持续创新，均贯穿「发现问题 — 定义需求 — 设计方案 — 验证交付」的完整流程。</p>
-      <div class="about-skills">
-        <span class="skill-pill">用户访谈</span>
-        <span class="skill-pill">问卷调查</span>
-        <span class="skill-pill">竞品分析</span>
-        <span class="skill-pill">用户画像</span>
-        <span class="skill-pill">需求分析</span>
-        <span class="skill-pill">原型设计</span>
-        <span class="skill-pill">Figma</span>
-        <span class="skill-pill">UI 设计</span>
-      </div>
-    </div>
+    <h1 class="hero-name">魏欣驰 · <em>Wei Xinchi</em></h1>
+    <p class="hero-title">产品设计师，以用户研究为起点，覆盖产品策略、交互体验与 AI 产品设计。点击下方卡片查看完整项目案例 ↓</p>
   </section>
 
   <div class="section-head">
@@ -418,7 +343,7 @@
       <p class="label">Selected Works</p>
       <h2>作品项目</h2>
     </div>
-    <div class="right">5 个项目，覆盖产品设计、UI/UX、AI 产品与可持续设计，均以用户研究为核心驱动。</div>
+    <div class="right">5 个项目 · 点击卡片查看完整案例</div>
   </div>
 
   <div class="project-index">
@@ -434,6 +359,7 @@
           <span class="card-tag">产品策略</span>
           <span class="card-tag">用户研究</span>
         </div>
+        <span class="card-cta">查看项目</span>
       </div>
     </a>
 
@@ -449,6 +375,7 @@
           <span class="card-tag">空间计算</span>
           <span class="card-tag">概念设计</span>
         </div>
+        <span class="card-cta">查看项目</span>
       </div>
     </a>
 
@@ -464,6 +391,7 @@
           <span class="card-tag">用户研究</span>
           <span class="card-tag">交互设计</span>
         </div>
+        <span class="card-cta">查看项目</span>
       </div>
     </a>
 
@@ -479,6 +407,7 @@
           <span class="card-tag">系统方案</span>
           <span class="card-tag">概念原型</span>
         </div>
+        <span class="card-cta">查看项目</span>
       </div>
     </a>
 
@@ -494,6 +423,7 @@
           <span class="card-tag">多模态交互</span>
           <span class="card-tag">用户研究</span>
         </div>
+        <span class="card-cta">查看项目</span>
       </div>
     </a>
   </div>
@@ -647,7 +577,12 @@ function showProject(num) {
   document.getElementById('home').style.display = 'none';
   document.querySelectorAll('.project-page').forEach(p => p.classList.remove('active'));
   const target = document.getElementById('project-' + num);
-  if (target) target.classList.add('active');
+  if (target) {
+    target.classList.add('active');
+    /* start fetching every slide at once — gallery is fully ready while the first slide is read */
+    target.querySelectorAll('img').forEach(img => { if (img.loading === 'lazy') img.loading = 'eager'; });
+    (projectImgSets[num] || []).forEach(preload);
+  }
   document.querySelector('nav').classList.add('in-project');
   document.getElementById('floatingBack').classList.add('show');
   setActiveNav(null);
@@ -674,6 +609,32 @@ document.querySelectorAll('img').forEach(img => {
       setTimeout(() => { img.src = base + '?retry=' + tries + '&t=' + Date.now(); }, 700 * tries);
     }
   });
+});
+
+/* ── Preload scheduling so project pages feel instant ── */
+const projectImgSets = {};
+document.querySelectorAll('.project-page').forEach(page => {
+  projectImgSets[page.id.replace('project-', '')] =
+    Array.from(page.querySelectorAll('img')).map(i => i.getAttribute('src').split('?')[0]);
+});
+const preloaded = new Set();
+function preload(src) {
+  if (preloaded.has(src)) return;
+  preloaded.add(src);
+  (new Image()).src = src;
+}
+/* hover a card (desktop) or touch it (mobile) -> warm that project in advance */
+document.querySelectorAll('.project-card').forEach(card => {
+  const m = card.getAttribute('onclick').match(/showProject\((\d)\)/);
+  if (!m) return;
+  const list = projectImgSets[m[1]] || [];
+  const warm = () => list.forEach(preload);
+  card.addEventListener('mouseenter', warm);
+  card.addEventListener('touchstart', warm, { passive: true });
+});
+/* after the homepage settles, quietly fetch all five cover slides */
+window.addEventListener('load', () => {
+  setTimeout(() => Object.values(projectImgSets).forEach(list => { if (list[0]) preload(list[0]); }), 500);
 });
 </script>
 </body>
