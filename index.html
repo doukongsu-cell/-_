@@ -632,9 +632,14 @@ document.querySelectorAll('.project-card').forEach(card => {
   card.addEventListener('mouseenter', warm);
   card.addEventListener('touchstart', warm, { passive: true });
 });
-/* after the homepage settles, quietly fetch all five cover slides */
+/* Staged preload while the visitor is still reading the homepage:
+   1) all five covers first (~230KB)  2) every remaining slide (~1MB total) */
 window.addEventListener('load', () => {
-  setTimeout(() => Object.values(projectImgSets).forEach(list => { if (list[0]) preload(list[0]); }), 500);
+  const covers = Object.values(projectImgSets).map(list => list[0]).filter(Boolean);
+  setTimeout(() => covers.forEach(preload), 400);
+  setTimeout(() => {
+    Object.values(projectImgSets).forEach(list => list.slice(1).forEach(preload));
+  }, 3000);
 });
 </script>
 </body>
