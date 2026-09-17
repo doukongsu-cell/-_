@@ -202,8 +202,9 @@
   }
   .card-thumb img {
     width: 100%; height: 100%; object-fit: cover;
-    transition: transform 0.6s ease;
+    opacity: 0; transition: transform 0.6s ease, opacity 0.35s ease;
   }
+  .card-thumb img.loaded { opacity: 1; }
   .project-card:hover .card-thumb img { transform: scale(1.04); }
   .card-body { padding: 24px 26px 26px; }
   .card-num {
@@ -292,10 +293,25 @@
     border-radius: 6px;
     overflow: hidden;
     border: 1px solid var(--border);
-    background: var(--card);
+    /* reserve space before image loads -> no layout collapse */
+    aspect-ratio: 842 / 595;
+    background:
+      linear-gradient(100deg, #EDE9E3 30%, #F6F3EE 50%, #EDE9E3 70%) 0 0 / 200% 100%;
+    animation: shimmer 1.6s linear infinite;
   }
+  .gallery-item.ratio-wide { aspect-ratio: 1023 / 576; }
   .gallery-item img {
-    width: 100%; height: auto; display: block;
+    width: 100%; height: 100%; display: block;
+    object-fit: contain;
+    background: var(--card);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  .gallery-item img.loaded { opacity: 1; }
+  .gallery-item:has(img.loaded) { animation: none; }
+  @keyframes shimmer {
+    from { background-position: 200% 0; }
+    to { background-position: -200% 0; }
   }
 
   /* ── FOOTER ── */
@@ -408,7 +424,7 @@
   <div class="project-index">
     <!-- Project 1: 小佩宠物 -->
     <a class="project-card" href="#" onclick="showProject(1); return false;">
-      <div class="card-thumb"><img src="images/11.png" alt="小佩宠物改善与创新"></div>
+      <div class="card-thumb"><img src="images/11.webp" alt="小佩宠物改善与创新"></div>
       <div class="card-body">
         <p class="card-num">01 / 05</p>
         <h2 class="card-title">小佩宠物改善与创新</h2>
@@ -423,7 +439,7 @@
 
     <!-- Project 2: 豆包 Vision-AI -->
     <a class="project-card" href="#" onclick="showProject(2); return false;">
-      <div class="card-thumb"><img src="images/18.png" alt="豆包 Vision-AI"></div>
+      <div class="card-thumb"><img src="images/18.webp" alt="豆包 Vision-AI"></div>
       <div class="card-body">
         <p class="card-num">02 / 05</p>
         <h2 class="card-title">豆包 Vision-AI</h2>
@@ -438,7 +454,7 @@
 
     <!-- Project 3: 悠行安护 -->
     <a class="project-card" href="#" onclick="showProject(3); return false;">
-      <div class="card-thumb"><img src="images/01.png" alt="悠行安护"></div>
+      <div class="card-thumb"><img src="images/01.webp" alt="悠行安护"></div>
       <div class="card-body">
         <p class="card-num">03 / 05</p>
         <h2 class="card-title">悠行安护</h2>
@@ -453,7 +469,7 @@
 
     <!-- Project 4: 退役电动车电池 -->
     <a class="project-card" href="#" onclick="showProject(4); return false;">
-      <div class="card-thumb"><img src="images/22.png" alt="退役电动车电池社区储能站"></div>
+      <div class="card-thumb"><img src="images/22.webp" alt="退役电动车电池社区储能站"></div>
       <div class="card-body">
         <p class="card-num">04 / 05</p>
         <h2 class="card-title">退役电动车电池社区储能站</h2>
@@ -468,7 +484,7 @@
 
     <!-- Project 5: VibeSense -->
     <a class="project-card" href="#" onclick="showProject(5); return false;">
-      <div class="card-thumb"><img src="images/28.png" alt="VibeSense"></div>
+      <div class="card-thumb"><img src="images/28.webp" alt="VibeSense"></div>
       <div class="card-body">
         <p class="card-num">05 / 05</p>
         <h2 class="card-title">VibeSense</h2>
@@ -501,13 +517,13 @@
     </div>
   </div>
   <div class="pages-gallery">
-    <div class="gallery-item"><img src="images/11.png" alt="小佩宠物 - 封面" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/12.png" alt="小佩宠物 - 设计背景" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/13.png" alt="小佩宠物 - 市场调研" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/14.png" alt="小佩宠物 - 定性与定量研究" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/15.png" alt="小佩宠物 - UI 套件" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/16.png" alt="小佩宠物 - 积分制度" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/17.png" alt="小佩宠物 - 关键页面" loading="lazy"></div>
+    <div class="gallery-item"><img src="images/11.webp" alt="小佩宠物 - 封面" loading="eager" fetchpriority="high"></div>
+    <div class="gallery-item"><img src="images/12.webp" alt="小佩宠物 - 设计背景" loading="lazy"></div>
+    <div class="gallery-item"><img src="images/13.webp" alt="小佩宠物 - 市场调研" loading="lazy"></div>
+    <div class="gallery-item"><img src="images/14.webp" alt="小佩宠物 - 定性与定量研究" loading="lazy"></div>
+    <div class="gallery-item"><img src="images/15.webp" alt="小佩宠物 - UI 套件" loading="lazy"></div>
+    <div class="gallery-item"><img src="images/16.webp" alt="小佩宠物 - 积分制度" loading="lazy"></div>
+    <div class="gallery-item"><img src="images/17.webp" alt="小佩宠物 - 关键页面" loading="lazy"></div>
   </div>
   <footer>
     <p>© 2024 Wei Xinchi · 产品设计作品集</p>
@@ -528,10 +544,10 @@
     </div>
   </div>
   <div class="pages-gallery">
-    <div class="gallery-item"><img src="images/18.png" alt="豆包 Vision-AI - 封面" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/19.png" alt="豆包 Vision-AI - 新项目页面" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/20.png" alt="豆包 Vision-AI - 图像生成页面" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/21.png" alt="豆包 Vision-AI - 文件夹页面" loading="lazy"></div>
+    <div class="gallery-item"><img src="images/18.webp" alt="豆包 Vision-AI - 封面" loading="eager" fetchpriority="high"></div>
+    <div class="gallery-item"><img src="images/19.webp" alt="豆包 Vision-AI - 新项目页面" loading="lazy"></div>
+    <div class="gallery-item"><img src="images/20.webp" alt="豆包 Vision-AI - 图像生成页面" loading="lazy"></div>
+    <div class="gallery-item"><img src="images/21.webp" alt="豆包 Vision-AI - 文件夹页面" loading="lazy"></div>
   </div>
   <footer>
     <p>© 2024 Wei Xinchi · 产品设计作品集</p>
@@ -552,16 +568,16 @@
     </div>
   </div>
   <div class="pages-gallery">
-    <div class="gallery-item"><img src="images/01.png" alt="悠行安护 - 封面" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/02.png" alt="悠行安护 - 设计背景" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/03.png" alt="悠行安护 - 市场调研" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/04.png" alt="悠行安护 - 用户研究" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/05.png" alt="悠行安护 - 用户模型" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/06.png" alt="悠行安护 - PDS 与头脑风暴" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/07.png" alt="悠行安护 - 设计比较" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/08.png" alt="悠行安护 - 爆炸图" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/09.png" alt="悠行安护 - 软件界面" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/10.png" alt="悠行安护 - 故事板" loading="lazy"></div>
+    <div class="gallery-item"><img src="images/01.webp" alt="悠行安护 - 封面" loading="eager" fetchpriority="high"></div>
+    <div class="gallery-item"><img src="images/02.webp" alt="悠行安护 - 设计背景" loading="lazy"></div>
+    <div class="gallery-item"><img src="images/03.webp" alt="悠行安护 - 市场调研" loading="lazy"></div>
+    <div class="gallery-item"><img src="images/04.webp" alt="悠行安护 - 用户研究" loading="lazy"></div>
+    <div class="gallery-item"><img src="images/05.webp" alt="悠行安护 - 用户模型" loading="lazy"></div>
+    <div class="gallery-item"><img src="images/06.webp" alt="悠行安护 - PDS 与头脑风暴" loading="lazy"></div>
+    <div class="gallery-item"><img src="images/07.webp" alt="悠行安护 - 设计比较" loading="lazy"></div>
+    <div class="gallery-item"><img src="images/08.webp" alt="悠行安护 - 爆炸图" loading="lazy"></div>
+    <div class="gallery-item"><img src="images/09.webp" alt="悠行安护 - 软件界面" loading="lazy"></div>
+    <div class="gallery-item"><img src="images/10.webp" alt="悠行安护 - 故事板" loading="lazy"></div>
   </div>
   <footer>
     <p>© 2024 Wei Xinchi · 产品设计作品集</p>
@@ -582,12 +598,12 @@
     </div>
   </div>
   <div class="pages-gallery">
-    <div class="gallery-item"><img src="images/22.png" alt="退役电动车电池 - 封面" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/23.png" alt="退役电动车电池 - 背景" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/24.png" alt="退役电动车电池 - PESTEL 分析" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/25.png" alt="退役电动车电池 - 方案" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/26.png" alt="退役电动车电池 - 概念细节" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/27.png" alt="退役电动车电池 - 能源系统测算" loading="lazy"></div>
+    <div class="gallery-item"><img src="images/22.webp" alt="退役电动车电池 - 封面" loading="eager" fetchpriority="high"></div>
+    <div class="gallery-item ratio-wide"><img src="images/23.webp" alt="退役电动车电池 - 背景" loading="lazy"></div>
+    <div class="gallery-item ratio-wide"><img src="images/24.webp" alt="退役电动车电池 - PESTEL 分析" loading="lazy"></div>
+    <div class="gallery-item ratio-wide"><img src="images/25.webp" alt="退役电动车电池 - 方案" loading="lazy"></div>
+    <div class="gallery-item ratio-wide"><img src="images/26.webp" alt="退役电动车电池 - 概念细节" loading="lazy"></div>
+    <div class="gallery-item ratio-wide"><img src="images/27.webp" alt="退役电动车电池 - 能源系统测算" loading="lazy"></div>
   </div>
   <footer>
     <p>© 2024 Wei Xinchi · 产品设计作品集</p>
@@ -608,8 +624,8 @@
     </div>
   </div>
   <div class="pages-gallery">
-    <div class="gallery-item"><img src="images/28.png" alt="VibeSense - 封面与故事板" loading="lazy"></div>
-    <div class="gallery-item"><img src="images/29.png" alt="VibeSense - 用户画像与系统架构" loading="lazy"></div>
+    <div class="gallery-item"><img src="images/28.webp" alt="VibeSense - 封面与故事板" loading="eager" fetchpriority="high"></div>
+    <div class="gallery-item"><img src="images/29.webp" alt="VibeSense - 用户画像与系统架构" loading="lazy"></div>
   </div>
   <footer>
     <p>© 2024 Wei Xinchi · 产品设计作品集</p>
@@ -645,6 +661,20 @@ function setActiveNav(id) {
     if (el) el.classList.add('active');
   }
 }
+
+/* ── Image loading: fade-in when ready, auto-retry on flaky networks ── */
+document.querySelectorAll('img').forEach(img => {
+  const base = img.getAttribute('src').split('?')[0];
+  let tries = 0;
+  img.addEventListener('load', () => img.classList.add('loaded'));
+  if (img.complete && img.naturalWidth > 0) img.classList.add('loaded');
+  img.addEventListener('error', () => {
+    if (tries < 2) {
+      tries += 1;
+      setTimeout(() => { img.src = base + '?retry=' + tries + '&t=' + Date.now(); }, 700 * tries);
+    }
+  });
+});
 </script>
 </body>
 </html>
